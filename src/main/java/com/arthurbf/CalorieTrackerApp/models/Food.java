@@ -29,7 +29,16 @@ public class Food {
     private double fatsPerServing;
 
     @NotBlank
-    private String servingType;
+    public double getServingSize() {
+        return servingSize;
+    }
+
+    public void setServingSize(@NotBlank double servingSize) {
+        this.servingSize = servingSize;
+    }
+
+    @NotBlank
+    private double servingSize;
 
     public @NotBlank String getName() {
         return name;
@@ -70,13 +79,5 @@ public class Food {
 
     public void setFatsPerServing(double fatsPerServing) {
         this.fatsPerServing = fatsPerServing;
-    }
-
-    public @NotBlank String getServingType() {
-        return servingType;
-    }
-
-    public void setServingType(@NotBlank String servingType) {
-        this.servingType = servingType;
     }
 }

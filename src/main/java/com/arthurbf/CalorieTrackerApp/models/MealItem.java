@@ -2,6 +2,7 @@ package com.arthurbf.CalorieTrackerApp.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.util.UUID;
 
@@ -10,10 +11,10 @@ import java.util.UUID;
 @Table(name ="TB_MEAL_ITEMS")
 public class MealItem {
 
-    public MealItem(Meal meal, Food food, double servingSize) {
+    public MealItem(Meal meal, Food food, double servingQuantity) {
         this.meal = meal;
         this.food = food;
-        this.servingSize = servingSize;
+        this.servingQuantity = servingQuantity;
         calculateNutritionalValues();
     }
 
@@ -30,7 +31,8 @@ public class MealItem {
     private Food food;
 
     @NotNull
-    private double servingSize;
+    @Positive
+    private double servingQuantity;
 
     @NotNull
     private double calories;
@@ -42,9 +44,9 @@ public class MealItem {
     private double carbs;
 
     public void calculateNutritionalValues() {
-        this.calories = food.getCaloriesPerServing() * servingSize;
-        this.proteins = food.getProteinsPerServing() * servingSize;
-        this.fats = food.getFatsPerServing() * servingSize;
-        this.carbs = food.getCarbsPerServing() * servingSize;
+        this.calories = food.getCaloriesPerServing() * servingQuantity;
+        this.proteins = food.getProteinsPerServing() * servingQuantity;
+        this.fats = food.getFatsPerServing() * servingQuantity;
+        this.carbs = food.getCarbsPerServing() * servingQuantity;
     }
 }
