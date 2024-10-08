@@ -39,4 +39,12 @@ public class User {
     public void setName(@NotBlank String name) {
         this.name = name;
     }
+
+    public @NotBlank String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotBlank String password) {
+        this.password = password;
+    }
 }
