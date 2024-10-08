@@ -19,6 +19,7 @@ public class Food {
     @NotBlank
     private String name;
 
+    // 1 serving = 100 grams
     @NotNull
     private double caloriesPerServing;
 
@@ -27,18 +28,6 @@ public class Food {
     private double carbsPerServing;
 
     private double fatsPerServing;
-
-    @NotBlank
-    public double getServingSize() {
-        return servingSize;
-    }
-
-    public void setServingSize(@NotBlank double servingSize) {
-        this.servingSize = servingSize;
-    }
-
-    @NotBlank
-    private double servingSize;
 
     public @NotBlank String getName() {
         return name;

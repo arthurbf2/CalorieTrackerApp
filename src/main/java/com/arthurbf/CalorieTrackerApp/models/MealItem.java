@@ -11,10 +11,10 @@ import java.util.UUID;
 @Table(name ="TB_MEAL_ITEMS")
 public class MealItem {
 
-    public MealItem(Meal meal, Food food, double servingQuantity) {
+    public MealItem(Meal meal, Food food, double quantity) {
         this.meal = meal;
         this.food = food;
-        this.servingQuantity = servingQuantity;
+        this.quantity = quantity;
         calculateNutritionalValues();
     }
 
@@ -32,7 +32,7 @@ public class MealItem {
 
     @NotNull
     @Positive
-    private double servingQuantity;
+    private double quantity;
 
     @NotNull
     private double calories;
@@ -44,9 +44,44 @@ public class MealItem {
     private double carbs;
 
     public void calculateNutritionalValues() {
-        this.calories = food.getCaloriesPerServing() * servingQuantity;
-        this.proteins = food.getProteinsPerServing() * servingQuantity;
-        this.fats = food.getFatsPerServing() * servingQuantity;
-        this.carbs = food.getCarbsPerServing() * servingQuantity;
+        this.calories = (food.getCaloriesPerServing() / 100) * this.quantity;
+        this.proteins = (food.getProteinsPerServing() / 100) * this.quantity;
+        this.fats = (food.getFatsPerServing() / 100) * this.quantity;
+        this.carbs = (food.getCarbsPerServing() / 100) * this.quantity;
+    }
+
+    public void setQuantity(@NotNull @Positive double quantity) {
+        this.quantity = quantity;
+    }
+
+    public Meal getMeal() {
+        return meal;
+    }
+
+    public Food getFood() {
+        return food;
+    }
+
+    @NotNull
+    @Positive
+    public double getQuantity() {
+        return quantity;
+    }
+
+    @NotNull
+    public double getCalories() {
+        return calories;
+    }
+
+    public double getProteins() {
+        return proteins;
+    }
+
+    public double getFats() {
+        return fats;
+    }
+
+    public double getCarbs() {
+        return carbs;
     }
 }

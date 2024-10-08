@@ -33,4 +33,35 @@ public class Meal {
         SNACK
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public List<MealItem> getMealItems() {
+        return mealItems;
+    }
+
+    public void setMealItems(List<MealItem> mealItems) {
+        this.mealItems = mealItems;
+    }
+
+    public MealType getMealType() {
+        return mealType;
+    }
+
+    public void setMealType(MealType mealType) {
+        this.mealType = mealType;
+    }
 }
