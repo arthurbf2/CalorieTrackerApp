@@ -10,6 +10,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,5 +37,9 @@ public class UserService {
         return userRepository.findAll().stream()
                 .map(user -> new UserResponseDTO(user.getName(), user.getEmail()))
                 .collect(Collectors.toList());
+    }
+
+    public Optional<User> getUser(UUID user_id) {
+        return userRepository.findById(user_id);
     }
 }
