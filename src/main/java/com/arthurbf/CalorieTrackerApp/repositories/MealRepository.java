@@ -10,5 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface MealRepository extends JpaRepository<Meal, UUID> {
-    Optional<Meal> findByUserAndDateAndMealType(UUID user_id, LocalDate date, Meal.MealType mealType);
+    Optional<Meal> findByUser_IdAndDateAndMealType(UUID user_id, LocalDate date, Meal.MealType mealType);
 }
