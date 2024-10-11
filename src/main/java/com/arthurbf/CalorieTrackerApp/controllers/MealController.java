@@ -31,7 +31,7 @@ public class MealController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Created");
     }
 
-    @GetMapping("/users/{user_id}/meals/{meal_id}/items")
+    @GetMapping("/users/{user_id}/meals/{meal_id}")
     public ResponseEntity<MealResponseDTO> getMealDetails(@PathVariable UUID user_id, @PathVariable UUID meal_id) {
         return ResponseEntity.status(HttpStatus.OK).body(mealService.getMealDetails(user_id, meal_id));
     }
