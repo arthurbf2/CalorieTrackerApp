@@ -17,12 +17,13 @@ public class Meal {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     private LocalDate date;
 
-    @OneToMany(mappedBy = "meal")
+    @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<MealItem> mealItems = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)

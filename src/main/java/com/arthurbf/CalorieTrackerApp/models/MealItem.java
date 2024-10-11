@@ -1,5 +1,6 @@
 package com.arthurbf.CalorieTrackerApp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -10,6 +11,8 @@ import java.util.UUID;
 @Entity
 @Table(name ="TB_MEAL_ITEMS")
 public class MealItem {
+
+    public MealItem() {}
 
     public MealItem(Meal meal, Food food, double quantity) {
         this.meal = meal;
@@ -24,6 +27,7 @@ public class MealItem {
 
     @ManyToOne
     @JoinColumn(name = "meal_id", nullable = false)
+    @JsonIgnore
     private Meal meal;
 
     @ManyToOne
