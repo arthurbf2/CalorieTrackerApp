@@ -1,4 +1,6 @@
 package com.arthurbf.CalorieTrackerApp.dtos;
 
-public record ItemRequestDTO() {
+import java.util.UUID;
+
+public record ItemRequestDTO(UUID food_id, double quantity) {
 }
