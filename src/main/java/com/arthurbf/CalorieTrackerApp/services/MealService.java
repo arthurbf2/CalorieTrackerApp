@@ -73,4 +73,19 @@ public class MealService {
         }
         return meal;
     }
+
+    public void updateMeal(UUID user_id, UUID meal_id, UUID meal_item_id, ItemRequestDTO itemRequestDTO) {
+        var meal = getMealForUser(user_id, meal_id);
+        var mealItemDb = meal.getMealItems()
+                .stream()
+                .filter(mealItem -> mealItem.getId().equals(meal_item_id))
+                .findAny();
+        if (mealItemDb.isEmpty()) {
+            throw new RuntimeException("Meal item does not exist");
+        }
+        var mealItem = mealItemDb.get();
+        mealItem.setQuantity(itemRequestDTO.quantity());
+        mealItem.calculateNutritionalValues();
+        mealRepository.save(meal);
+    }
 }

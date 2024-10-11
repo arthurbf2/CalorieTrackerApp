@@ -35,4 +35,13 @@ public class MealController {
     public ResponseEntity<MealResponseDTO> getMealDetails(@PathVariable UUID user_id, @PathVariable UUID meal_id) {
         return ResponseEntity.status(HttpStatus.OK).body(mealService.getMealDetails(user_id, meal_id));
     }
+
+    @PatchMapping("/users/{user_id}/meals/{meal_id}/items/{meal_item_id}")
+    public ResponseEntity<String> updateMealItem(@PathVariable UUID user_id, @PathVariable UUID meal_id,
+                                                 @PathVariable UUID meal_item_id,
+                                                 @RequestBody ItemRequestDTO itemRequestDTO) {
+        mealService.updateMeal(user_id, meal_id, meal_item_id, itemRequestDTO);
+        return ResponseEntity.status(HttpStatus.OK).body("Meal updated");
+    }
+
 }

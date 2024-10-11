@@ -47,6 +47,10 @@ public class MealItem {
 
     private double carbs;
 
+    public UUID getId() {
+        return id;
+    }
+
     public void calculateNutritionalValues() {
         this.calories = (food.getCaloriesPerServing() / 100) * this.quantity;
         this.proteins = (food.getProteinsPerServing() / 100) * this.quantity;
