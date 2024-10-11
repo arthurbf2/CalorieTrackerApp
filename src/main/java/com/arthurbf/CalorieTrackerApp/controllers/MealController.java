@@ -44,4 +44,16 @@ public class MealController {
         return ResponseEntity.status(HttpStatus.OK).body("Meal updated");
     }
 
+    @DeleteMapping("/users/{user_id}/meals/{meal_id}")
+    public ResponseEntity<String> deleteMeal(@PathVariable UUID user_id, @PathVariable UUID meal_id) {
+        mealService.deleteMeal(user_id, meal_id);
+        return ResponseEntity.status(HttpStatus.OK).body("Meal deleted");
+    }
+
+    @DeleteMapping("/users/{user_id}/meals/{meal_id}/items/{meal_item_id}")
+    public ResponseEntity<String> deleteMealItem(@PathVariable UUID user_id, @PathVariable UUID meal_id,
+                                                 @PathVariable UUID meal_item_id) {
+        mealService.deleteMealItem(user_id, meal_id, meal_item_id);
+        return ResponseEntity.status(HttpStatus.OK).body("Meal item deleted");
+    }
 }

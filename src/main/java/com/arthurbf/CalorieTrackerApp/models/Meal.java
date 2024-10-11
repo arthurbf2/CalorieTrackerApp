@@ -24,7 +24,7 @@ public class Meal {
 
     private LocalDate date;
 
-    @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<MealItem> mealItems = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)

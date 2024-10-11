@@ -76,16 +76,31 @@ public class MealService {
 
     public void updateMeal(UUID user_id, UUID meal_id, UUID meal_item_id, ItemRequestDTO itemRequestDTO) {
         var meal = getMealForUser(user_id, meal_id);
-        var mealItemDb = meal.getMealItems()
-                .stream()
-                .filter(mealItem -> mealItem.getId().equals(meal_item_id))
-                .findAny();
-        if (mealItemDb.isEmpty()) {
-            throw new RuntimeException("Meal item does not exist");
-        }
-        var mealItem = mealItemDb.get();
+        var mealItem = getMealItem(meal, meal_item_id);
         mealItem.setQuantity(itemRequestDTO.quantity());
         mealItem.calculateNutritionalValues();
         mealRepository.save(meal);
+    }
+
+    public void deleteMeal(UUID user_id, UUID meal_id) {
+        var meal = getMealForUser(user_id, meal_id);
+        mealRepository.delete(meal);
+    }
+
+    public void deleteMealItem(UUID user_id, UUID meal_id, UUID meal_item_id) {
+        var meal = getMealForUser(user_id, meal_id);
+        var mealItem = getMealItem(meal, meal_item_id);
+        meal.getMealItems().remove(mealItem);
+        mealRepository.save(meal);
+    }
+
+    private MealItem getMealItem(Meal meal, UUID meal_item_id) {
+        var mealItemOptional = meal.getMealItems()
+                .stream()
+                .filter(mealItem -> mealItem.getId().equals(meal_item_id))
+                .findAny();
+        if (mealItemOptional.isEmpty())
+            throw new RuntimeException("Meal item does not exist or belong to this meal");
+        return mealItemOptional.get();
     }
 }
