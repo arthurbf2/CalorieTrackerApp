@@ -19,7 +19,7 @@ public class MealController {
         this.mealService = mealService;
     }
 
-    @PostMapping("/users/{user_id}/meals/")
+    @PostMapping("/users/{user_id}/meals")
     public ResponseEntity<String> createMeal(@PathVariable UUID user_id, @RequestBody MealRequestDTO mealRequestDTO) {
         mealService.createMeal(user_id, mealRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("Created");

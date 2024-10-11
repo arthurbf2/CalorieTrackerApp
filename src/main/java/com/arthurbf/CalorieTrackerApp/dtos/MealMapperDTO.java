@@ -16,17 +16,18 @@ public class MealMapperDTO implements Function<Meal, MealResponseDTO> {
                 .stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
-        return new MealResponseDTO(meal.getDate(), mealItemsDTO, meal.getMealType());
+        return new MealResponseDTO(meal.getDate(), mealItemsDTO, meal.getMealType(), meal.calculateTotalCalories(),
+                meal.calculateTotalFat(), meal.calculateTotalCarbs(), meal.calculateTotalProtein());
     }
 
     private ItemResponseDTO toResponseDTO(MealItem mealItem) {
         return new ItemResponseDTO(
                 mealItem.getFood().getName(),
                 mealItem.getQuantity(),
-                mealItem.getCalories(),
-                mealItem.getProteins(),
-                mealItem.getFats(),
-                mealItem.getCarbs()
+                Math.round(mealItem.getCalories()),
+                Math.round(mealItem.getProteins()),
+                Math.round(mealItem.getFats()),
+                Math.round(mealItem.getCarbs())
         );
     }
 }

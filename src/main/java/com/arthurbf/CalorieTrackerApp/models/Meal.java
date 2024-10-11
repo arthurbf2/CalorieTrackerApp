@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 @Entity
 @Table(name = "TB_MEALS", uniqueConstraints = {
@@ -34,6 +35,29 @@ public class Meal {
         LUNCH,
         DINNER,
         SNACK
+    }
+
+    private double calculateTotal(Function<MealItem, Double> mapper) {
+        double total = mealItems.stream()
+                .mapToDouble(mapper::apply)
+                .sum();
+        return Math.round(total);
+    }
+
+    public double calculateTotalCalories() {
+        return calculateTotal(MealItem::getCalories);
+    }
+
+    public double calculateTotalCarbs() {
+        return calculateTotal(MealItem::getCarbs);
+    }
+
+    public double calculateTotalProtein() {
+        return calculateTotal(MealItem::getProteins);
+    }
+
+    public double calculateTotalFat() {
+        return calculateTotal(MealItem::getFats);
     }
 
     public User getUser() {
