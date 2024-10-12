@@ -1,7 +1,7 @@
 package com.arthurbf.CalorieTrackerApp.controllers;
 
 
-import com.arthurbf.CalorieTrackerApp.dtos.UserRequestDTO;
+import com.arthurbf.CalorieTrackerApp.dtos.RegistrationDTO;
 import com.arthurbf.CalorieTrackerApp.dtos.UserResponseDTO;
 import com.arthurbf.CalorieTrackerApp.services.UserService;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<UserRequestDTO> saveUser(@RequestBody UserRequestDTO userDTO) {
+    public ResponseEntity<RegistrationDTO> registerUser(@RequestBody RegistrationDTO userDTO) {
         userService.createUser(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
     }

@@ -83,6 +83,14 @@ public class User implements UserDetails {
         return UserDetails.super.isCredentialsNonExpired();
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();

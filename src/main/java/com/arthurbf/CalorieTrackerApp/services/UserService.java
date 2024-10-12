@@ -1,12 +1,12 @@
 package com.arthurbf.CalorieTrackerApp.services;
 
 
-import com.arthurbf.CalorieTrackerApp.dtos.UserRequestDTO;
+import com.arthurbf.CalorieTrackerApp.dtos.RegistrationDTO;
 import com.arthurbf.CalorieTrackerApp.dtos.UserResponseDTO;
 import com.arthurbf.CalorieTrackerApp.models.User;
 import com.arthurbf.CalorieTrackerApp.repositories.UserRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,13 +23,17 @@ public class UserService {
     }
 
     @Transactional
-    public void createUser(UserRequestDTO userDTO) {
+    public void createUser(RegistrationDTO userDTO) {
         var userDb = userRepository.findByEmail(userDTO.email());
         if (userDb.isPresent()) {
             throw new RuntimeException("User already exists.");
         }
+        String encryptedPassword = new BCryptPasswordEncoder().encode(userDTO.password());
         var user = new User();
-        BeanUtils.copyProperties(userDTO, user);
+        user.setEmail(userDTO.email());
+        user.setName(userDTO.name());
+        user.setPassword(encryptedPassword);
+        user.setRole(userDTO.role());
         userRepository.save(user);
     }
 
