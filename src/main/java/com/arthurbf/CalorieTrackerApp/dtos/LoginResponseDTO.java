@@ -1,4 +1,4 @@
 package com.arthurbf.CalorieTrackerApp.dtos;
 
-public record LoginResponseDTO(String token) {
+public record LoginResponseDTO(String email, String token) {
 }

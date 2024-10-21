@@ -3,9 +3,11 @@ package com.arthurbf.CalorieTrackerApp.services;
 
 import com.arthurbf.CalorieTrackerApp.dtos.RegistrationDTO;
 import com.arthurbf.CalorieTrackerApp.dtos.UserResponseDTO;
+import com.arthurbf.CalorieTrackerApp.models.Role;
 import com.arthurbf.CalorieTrackerApp.models.User;
 import com.arthurbf.CalorieTrackerApp.repositories.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +35,7 @@ public class UserService {
         user.setEmail(userDTO.email());
         user.setName(userDTO.name());
         user.setPassword(encryptedPassword);
-        user.setRole(userDTO.role());
+        user.setRole(userDTO.role() != null ? userDTO.role() : Role.USER);
         userRepository.save(user);
     }
 
@@ -45,5 +47,9 @@ public class UserService {
 
     public Optional<User> getUser(UUID user_id) {
         return userRepository.findById(user_id);
+    }
+
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }
