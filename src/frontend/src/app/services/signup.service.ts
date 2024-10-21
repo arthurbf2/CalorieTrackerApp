@@ -7,12 +7,10 @@ import { Observable } from 'rxjs';
 })
 export class SignupService {
 
-  private apiUrl = 'http://localhost:8080'
-
   constructor(private httpClient: HttpClient) { }
 
   register(userData: any): Observable<any> {
-    const url = `${this.apiUrl}/auth/register`;
+    const url = 'http://localhost:8080/auth/register'
     return this.httpClient.post(url, userData);
   }
 }
