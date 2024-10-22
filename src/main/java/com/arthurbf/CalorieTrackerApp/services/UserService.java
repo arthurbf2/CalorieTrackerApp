@@ -1,18 +1,14 @@
 package com.arthurbf.CalorieTrackerApp.services;
 
-
 import com.arthurbf.CalorieTrackerApp.dtos.RegistrationDTO;
 import com.arthurbf.CalorieTrackerApp.dtos.UserResponseDTO;
 import com.arthurbf.CalorieTrackerApp.models.Role;
 import com.arthurbf.CalorieTrackerApp.models.User;
 import com.arthurbf.CalorieTrackerApp.repositories.UserRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -45,11 +41,11 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<User> getUser(UUID user_id) {
-        return userRepository.findById(user_id);
+    public User getUser(UUID user_id) {
+        return userRepository.findById(user_id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    public Optional<User> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

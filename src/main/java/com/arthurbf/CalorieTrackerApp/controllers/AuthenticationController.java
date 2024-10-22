@@ -37,9 +37,7 @@ public class AuthenticationController {
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var user = userService.getUserByEmail(data.email());
-        if (user.isEmpty())
-            throw new RuntimeException("User not found");
-        if(passwordEncoder.matches(data.password(), user.get().getPassword())) {
+        if(passwordEncoder.matches(data.password(), user.getPassword())) {
             var auth = authenticationManager.authenticate(usernamePassword);
             var token = tokenService.generateToken((User) auth.getPrincipal());
             return ResponseEntity.ok(new LoginResponseDTO(data.email(), token));
