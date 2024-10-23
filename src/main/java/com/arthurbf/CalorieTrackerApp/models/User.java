@@ -68,6 +68,10 @@ public class User implements UserDetails {
         return email;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return UserDetails.super.isAccountNonExpired();

@@ -1,4 +1,6 @@
 package com.arthurbf.CalorieTrackerApp.dtos;
 
-public record LoginResponseDTO(String email, String token) {
+import java.util.UUID;
+
+public record LoginResponseDTO(UUID userId, String token) {
 }
