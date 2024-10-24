@@ -14,8 +14,8 @@ export class LoginService {
     const url = 'http://localhost:8080/auth/login'
     return this.httpClient.post<LoginResponse>(url, {email, password}).pipe(
       tap ((value) => {
+        console.log(value)
         sessionStorage.setItem("auth-token", value.token)
-        sessionStorage.setItem("username", value.name)
       })
     )
   }
