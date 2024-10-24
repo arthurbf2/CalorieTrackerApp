@@ -16,7 +16,7 @@ public class MealMapperDTO implements Function<Meal, MealResponseDTO> {
                 .stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
-        return new MealResponseDTO(meal.getDate(), mealItemsDTO, meal.getMealType(), meal.calculateTotalCalories(),
+        return new MealResponseDTO(meal.getId(), meal.getDate(), mealItemsDTO, meal.getMealType(), meal.calculateTotalCalories(),
                 meal.calculateTotalFat(), meal.calculateTotalCarbs(), meal.calculateTotalProtein());
     }
 

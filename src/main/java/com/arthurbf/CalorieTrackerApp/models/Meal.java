@@ -37,6 +37,10 @@ public class Meal {
         SNACK
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     private double calculateTotal(Function<MealItem, Double> mapper) {
         double total = mealItems.stream()
                 .mapToDouble(mapper::apply)
