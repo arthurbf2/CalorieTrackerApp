@@ -10,8 +10,11 @@ import com.arthurbf.CalorieTrackerApp.repositories.MealRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class MealService {
@@ -39,13 +42,19 @@ public class MealService {
             throw new IllegalArgumentException("You can only have one " + mealRequestDTO.mealType() + " per day.");
         }
         var meal = new Meal();
-        var user = userService.getUser(user_id)
-                .orElseThrow(() -> new RuntimeException("User not found."));
+        var user = userService.getUser(user_id);
         meal.setUser(user);
         meal.setMealType(mealRequestDTO.mealType());
         meal.setDate(mealRequestDTO.localDate());
         meal.setMealItems(new ArrayList<>());
         mealRepository.save(meal);
+    }
+
+    public List<MealResponseDTO> getMealsFromDate(UUID user_id, LocalDate date) {
+        var meals = mealRepository.findAllByUserIdAndDate(user_id, date);
+        return meals.stream()
+                .map(mealMapperDTO)
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -66,10 +75,8 @@ public class MealService {
     private Meal getMealForUser(UUID user_id, UUID meal_id) {
         var meal = mealRepository.findById(meal_id)
                 .orElseThrow(() -> new RuntimeException("Meal not found"));
-        var user = userService.getUser(user_id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        if(!user.equals(meal.getUser())) {
-            throw new RuntimeException("Meal does not belong to this user");
+        if(!user_id.equals(meal.getUser().getId())){
+            throw new RuntimeException("Meal does not belong to this user.");
         }
         return meal;
     }
