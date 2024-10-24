@@ -1,0 +1,37 @@
+<section class="meal">
+    <h3>{{ mealType }}</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Food</th>
+                <th>Calories(kcal)</th>
+                <th>Carbs(g)</th>
+                <th>Fat(g)</th>
+                <th>Protein(g)</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let meal of getFilteredMeals()">
+            <ng-container *ngFor="let item of meal.mealItems">
+              <tr>
+                  <td>{{ item.foodName }}</td>
+                  <td>{{ item.calories }}</td>
+                  <td>{{ item.carbs }}</td>
+                  <td>{{ item.fats }}</td>
+                  <td>{{ item.proteins }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td><button class="remove">-</button></td>
+              </tr>
+            </ng-container>
+            <tr>
+              <td colspan="6" class="meal-footer">
+                <span>Total: {{ meal.totalCalories }} kcal</span>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+    </table>
+  </section>
+  
