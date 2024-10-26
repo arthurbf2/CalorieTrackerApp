@@ -37,6 +37,10 @@ public class Food {
         this.name = name;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     @NotNull
     public double getCaloriesPerServing() {
         return caloriesPerServing;
