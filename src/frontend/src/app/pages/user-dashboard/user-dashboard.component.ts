@@ -47,7 +47,7 @@ export class UserDashboardComponent implements OnInit {
     try {
       this.meals = await this.mealService.getMeals("2024-10-10");
     } catch (error) {
-      console.error('Error at fetching meals', error);
+      this.toastr.error('Error at fetching meals')
     }
   }
 
@@ -65,20 +65,5 @@ export class UserDashboardComponent implements OnInit {
 
   onDateChange(event: any): void {
     this.loadMeals(this.currentDate);
-  }
-
-
-  addFood(mealType: string): void {
-    /*
-    this.mealService.addMealItem(this.userId, mealType).subscribe({
-      next: () => {
-        this.toastr.success('meal item successfully added.');
-        this.fetchMeals();
-      },
-      error: () => {
-        this.toastr.error('Error');
-      }
-    });
-    */
   }
 }

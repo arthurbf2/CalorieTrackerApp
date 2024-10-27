@@ -34,26 +34,23 @@ export class MealService {
     return ''
   }
 
+  async createMeal(meal_type: string) {
+    return api.post<MealResponse>(`/meals`, {
+      localDate: "2024-10-10",
+      mealType: meal_type
+    })
+  }
+
   async addMealItem(food_id: string, quantity: number, meal_type: string) {
-    const meal_id = this.getMealId(meal_type)
+    let meal_id = this.getMealId(meal_type)
     if (!meal_id) {
-      // criar a meal
-      console.log("MEAL DOESNT EXIST")
-    }
-    /*
-    const response = await api.post(`/meals/43eda56f-2b53-4bf8-8254-78960d92608c/items`, {
-      date: "2024-10-10",
-      itemRequestDTO: {
-        foodId: "1234",
-        quantity: 123
+        const new_meal = await this.createMeal(meal_type)
+        meal_id = new_meal.data.id
       }
-    });
-    */
-    const response = await api.post(`/meals/${meal_id}/items`, {
+    await api.post(`/meals/${meal_id}/items`, {
       food_id: food_id,
       quantity: quantity
     })
-    console.log("POSTED ADD MEAL ITEM: ", response.data)
   }
 
 }
