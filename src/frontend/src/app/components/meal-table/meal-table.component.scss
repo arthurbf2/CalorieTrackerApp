@@ -1,3 +1,5 @@
+@import "../../../styles/variables.scss";
+
 .meal {
     margin-bottom: 20px;
     
@@ -13,7 +15,7 @@
         }
 
         th {
-            background-color: #007bff;
+            background-color: $secondary-color;
             color: white;
         }
     }
@@ -25,7 +27,7 @@
         font-weight: bold;
 
         .add-food {
-            color: #007bff;
+            color: $primary-color;
             text-decoration: none;
         }
     }
@@ -38,4 +40,15 @@
         border-radius: 50%;
         cursor: pointer;
     }
+
+    .add-item {
+        background-color: $secondary-color;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      
 }

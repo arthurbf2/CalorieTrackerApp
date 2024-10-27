@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>Seu diário de alimentos para:</h2>
+        <h2>Your food diary for:</h2>
         <div class="date-selector">
             <button class="prev-date">&lt;</button>
             <span>{{ formattedDate }}</span>
@@ -15,7 +15,6 @@
             <button class="calendar">&#x1F4C5;</button>
         </div>
 
-        <!-- Tabela de Refeições -->
         <app-meal-table [meals]="meals" mealType="BREAKFAST"></app-meal-table>
         <app-meal-table [meals]="meals" mealType="LUNCH"></app-meal-table>
         <app-meal-table [meals]="meals" mealType="DINNER"></app-meal-table>
@@ -34,21 +33,21 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Total Consumido</td>
+                        <td>Totals</td>
                         <td>420</td>
                         <td>129</td>
                         <td>50</td>
                         <td>111</td>
                     </tr>
                     <tr>
-                        <td>Sua meta diária</td>
+                        <td>Your daily goal</td>
                         <td>1.810</td>
                         <td>226</td>
                         <td>60</td>
                         <td>91</td>
                     </tr>
                     <tr>
-                        <td>Restantes</td>
+                        <td>Remaining</td>
                         <td>346</td>
                         <td>97</td>
                         <td>10</td>

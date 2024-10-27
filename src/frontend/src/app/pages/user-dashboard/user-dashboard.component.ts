@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MealService } from '../../services/meal.service';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MealResponse } from '../../types/meal-response.type';
-import { MealTableComponent } from '../../meal-table/meal-table.component';
+import { MealTableComponent } from '../../components/meal-table/meal-table.component';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -28,18 +28,24 @@ export class UserDashboardComponent implements OnInit {
   constructor(
     private mealService: MealService,
     private toastr: ToastrService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.router.events.subscribe(event => {
+      if(event.constructor.name === "NavigationEnd"){
+        this.loadMeals(this.currentDate)
+      }
+    }) 
+  }
 
   ngOnInit(): void {
     const date = new Date()
-    this.fetchMeals(date.toISOString().split('T')[0]);
+    this.loadMeals(date.toISOString().split('T')[0]);
   }
 
-  async fetchMeals(date: string) {
+  async loadMeals(date: string) {
     try {
       this.meals = await this.mealService.getMeals("2024-10-10");
-      console.log("MEAL: ", this.meals)
     } catch (error) {
       console.error('Error at fetching meals', error);
     }
@@ -58,7 +64,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   onDateChange(event: any): void {
-    this.fetchMeals(this.currentDate);
+    this.loadMeals(this.currentDate);
   }
 
 

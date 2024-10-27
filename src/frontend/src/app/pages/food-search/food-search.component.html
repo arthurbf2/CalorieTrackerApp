@@ -1,0 +1,43 @@
+<div class="search-container">
+    <h2>Search our food database by name</h2>
+    
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Enter food name..." />
+    <button (click)="searchFood()">Search</button>
+  
+    <div class="results-and-details">
+      <div *ngIf="searchResults.length > 0" class="results-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Food Name</th>
+              <th>Calories</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let food of searchResults" (click)="selectFood(food)">
+              <td>{{ food.name }}</td>
+              <td>{{ food.calories }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <div *ngIf="selectedFood" class="food-detail-box">
+        <h3>Add {{ selectedFood.name }}</h3>
+  
+        <label for="quantity">Quantity:</label>
+        <input id="quantity" type="number" [(ngModel)]="quantity" min="1" />
+  
+        <label for="mealType">Select Meal:</label>
+        <select id="mealType" [(ngModel)]="mealType">
+          <option value="BREAKFAST">Breakfast</option>
+          <option value="LUNCH">Lunch</option>
+          <option value="DINNER">Dinner</option>
+          <option value="SNACK">Snack</option>
+        </select>
+  
+        <button (click)="confirm()">Confirm</button>
+      </div>
+    </div>
+  </div>
+  
