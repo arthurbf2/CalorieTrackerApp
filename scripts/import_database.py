@@ -1,12 +1,13 @@
 import pandas as pd
 import psycopg2
 import uuid
+import os
 
 conn = psycopg2.connect(
     host="localhost",
     database="calorie-tracker-app",
-    user="postgres",
-    password="B182sucks"
+    user=os.environ['DB_USER'],
+    password=os.environ['DB_PASSWORD']
 )
 
 cur = conn.cursor()

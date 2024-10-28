@@ -32,7 +32,7 @@ public class MealService {
     }
 
     @Transactional
-    public void createMeal(UUID user_id, MealRequestDTO mealRequestDTO) {
+    public MealResponseDTO createMeal(UUID user_id, MealRequestDTO mealRequestDTO) {
         var mealDb = mealRepository.findByUser_IdAndDateAndMealType(
                 user_id,
                 mealRequestDTO.localDate(),
@@ -48,6 +48,7 @@ public class MealService {
         meal.setDate(mealRequestDTO.localDate());
         meal.setMealItems(new ArrayList<>());
         mealRepository.save(meal);
+        return mealMapperDTO.apply(meal);
     }
 
     public List<MealResponseDTO> getMealsFromDate(UUID user_id, LocalDate date) {

@@ -24,18 +24,17 @@ public class MealController {
     }
 
     @PostMapping("/meals")
-    public ResponseEntity<String> createMeal(@RequestBody MealRequestDTO mealRequestDTO, Authentication auth) {
+    public ResponseEntity<MealResponseDTO> createMeal(@RequestBody MealRequestDTO mealRequestDTO, Authentication auth) {
         var requestUser = (User) auth.getPrincipal();
-        mealService.createMeal(requestUser.getId(), mealRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Created");
+        return ResponseEntity.status(HttpStatus.CREATED).body(mealService.createMeal(requestUser.getId(), mealRequestDTO));
     }
 
     @PostMapping("/meals/{meal_id}/items")
     public ResponseEntity<String> addMealItem(@PathVariable UUID meal_id,
-                                              @RequestBody ItemRequestDTO ItemRequestDTO, Authentication auth) {
+                                              @RequestBody ItemRequestDTO itemRequestDTO, Authentication auth) {
 
         var requestUser = (User) auth.getPrincipal();
-        mealService.addMealItems(requestUser.getId(), meal_id, ItemRequestDTO);
+        mealService.addMealItems(requestUser.getId(), meal_id, itemRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("Created");
     }
 

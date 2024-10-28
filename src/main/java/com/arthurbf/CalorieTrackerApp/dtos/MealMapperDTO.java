@@ -22,6 +22,7 @@ public class MealMapperDTO implements Function<Meal, MealResponseDTO> {
 
     private ItemResponseDTO toResponseDTO(MealItem mealItem) {
         return new ItemResponseDTO(
+                mealItem.getId(),
                 mealItem.getFood().getName(),
                 mealItem.getQuantity(),
                 Math.round(mealItem.getCalories()),
