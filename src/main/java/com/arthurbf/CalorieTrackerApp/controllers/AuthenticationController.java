@@ -33,7 +33,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var user = userService.getUserByEmail(data.email());
         if(passwordEncoder.matches(data.password(), user.getPassword())) {
@@ -45,7 +45,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid RegistrationDTO data) {
+    public ResponseEntity<String> register(@RequestBody @Valid RegistrationDTO data) {
         userService.createUser(data);
         return ResponseEntity.ok().build();
     }

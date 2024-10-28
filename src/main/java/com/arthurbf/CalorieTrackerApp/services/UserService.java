@@ -1,16 +1,14 @@
 package com.arthurbf.CalorieTrackerApp.services;
 
 import com.arthurbf.CalorieTrackerApp.dtos.RegistrationDTO;
-import com.arthurbf.CalorieTrackerApp.dtos.UserResponseDTO;
 import com.arthurbf.CalorieTrackerApp.models.Role;
 import com.arthurbf.CalorieTrackerApp.models.User;
 import com.arthurbf.CalorieTrackerApp.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -33,12 +31,6 @@ public class UserService {
         user.setPassword(encryptedPassword);
         user.setRole(userDTO.role() != null ? userDTO.role() : Role.USER);
         userRepository.save(user);
-    }
-
-    public List<UserResponseDTO> getUsers() {
-        return userRepository.findAll().stream()
-                .map(user -> new UserResponseDTO(user.getName(), user.getEmail()))
-                .collect(Collectors.toList());
     }
 
     public User getUser(UUID user_id) {
