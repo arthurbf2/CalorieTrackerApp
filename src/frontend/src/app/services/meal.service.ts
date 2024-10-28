@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import api from './api.service'
 import { MealResponse } from '../types/meal-response.type';
+import { DateService } from './date.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class MealService {
 
   private meals: MealResponse[] = []
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private dateService: DateService) {}
 
   async getMeals(date: string): Promise<MealResponse[]> {
     try{
@@ -35,8 +36,9 @@ export class MealService {
   }
 
   async createMeal(meal_type: string) {
+    const date = this.dateService.getDateISOString()
     return api.post<MealResponse>(`/meals`, {
-      localDate: "2024-10-10",
+      localDate: date,
       mealType: meal_type
     })
   }
@@ -51,6 +53,10 @@ export class MealService {
       food_id: food_id,
       quantity: quantity
     })
+  }
+
+  async deleteMealItem(meal_id: string, item_id: string) {
+    await api.delete(`meals/${meal_id}/items/${item_id}`)
   }
 
 }

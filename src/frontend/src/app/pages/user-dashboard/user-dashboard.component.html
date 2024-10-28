@@ -9,16 +9,24 @@
     <div class="container">
         <h2>Your food diary for:</h2>
         <div class="date-selector">
-            <button class="prev-date">&lt;</button>
+            <button class="prev-date" (click)="previousDate()">&lt;</button>
+    
             <span>{{ formattedDate }}</span>
-            <button class="next-date">&gt;</button>
-            <button class="calendar">&#x1F4C5;</button>
+    
+            <button class="next-date" (click)="nextDate()">&gt;</button>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Select date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="currentDate" (dateChange)="onDateChange($event)" />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
         </div>
 
-        <app-meal-table [meals]="meals" mealType="BREAKFAST"></app-meal-table>
-        <app-meal-table [meals]="meals" mealType="LUNCH"></app-meal-table>
-        <app-meal-table [meals]="meals" mealType="DINNER"></app-meal-table>
-        <app-meal-table [meals]="meals" mealType="SNACK"></app-meal-table>
+        <app-meal-table [meals]="meals" mealType="BREAKFAST" (itemDeleted)="calculateTotals()"></app-meal-table>
+        <app-meal-table [meals]="meals" mealType="LUNCH" (itemDeleted)="calculateTotals()"></app-meal-table>
+        <app-meal-table [meals]="meals" mealType="DINNER" (itemDeleted)="calculateTotals()"></app-meal-table>
+        <app-meal-table [meals]="meals" mealType="SNACK" (itemDeleted)="calculateTotals()"></app-meal-table>
 
         <section class="totals">
             <table>
@@ -34,10 +42,10 @@
                 <tbody>
                     <tr>
                         <td>Totals</td>
-                        <td>420</td>
-                        <td>129</td>
-                        <td>50</td>
-                        <td>111</td>
+                        <td>{{ totalCalories }}</td>
+                        <td>{{ totalCarbs }}</td>
+                        <td>{{ totalFat }}</td>
+                        <td>{{ totalProtein }}</td>
                     </tr>
                     <tr>
                         <td>Your daily goal</td>
@@ -48,10 +56,10 @@
                     </tr>
                     <tr>
                         <td>Remaining</td>
-                        <td>346</td>
-                        <td>97</td>
-                        <td>10</td>
-                        <td>-20</td>
+                        <td>{{1810 - totalCalories }}</td>
+                        <td>{{ 226 - totalCarbs }}</td>
+                        <td>{{ 60 - totalFat }}</td>
+                        <td>{{ 91 - totalProtein }}</td>
                     </tr>
                 </tbody>
             </table>

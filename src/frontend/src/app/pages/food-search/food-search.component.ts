@@ -13,7 +13,7 @@ import { MealService } from '../../services/meal.service';
   standalone: true,
   imports: [
     FormsModule,
-    CommonModule
+    CommonModule,
   ]
 })
 export class FoodSearchComponent {
@@ -41,9 +41,9 @@ export class FoodSearchComponent {
     this.selectedFood = food;
   }
 
-  confirm() {
+  async confirm() {
     if(this.selectedFood){
-      this.mealService.addMealItem(this.selectedFood.id, this.quantity, this.mealType)
+      await this.mealService.addMealItem(this.selectedFood.id, this.quantity, this.mealType)
       this.router.navigate(['user-dashboard'])
     }
   }
