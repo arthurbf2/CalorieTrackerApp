@@ -14,6 +14,8 @@ Base de dados de alimentos utilizada: [www.ars.usda.gov/database](https://www.ar
 * Cálculo automático de calories e macronutrientes consumidos por refeição e por dia.
 * Frontend Angular para consumo da API REST.
 
+![Screenshot from 2024-10-28 19-10-15](https://github.com/user-attachments/assets/b919c978-341f-41e5-87a1-69e07d72a892)
+
 ## **Instalação**
 
 Para instalar o backend, seguir os passos(é necessário JDK 21+ e Maven 3+):
@@ -41,3 +43,5 @@ Instalação do frontend(é necessário Angular 17):
 3. **`ng serve`**
 
 A aplicação ficará disponível em http://localhost:4200.
+
+
